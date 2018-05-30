@@ -14,12 +14,36 @@ npm --version
 npm install'''
       }
     }
-    stage('Test') {
-      environment {
-        CI = 'true'
-      }
-      steps {
-        sh './jenkins/scripts/test.sh'
+    stage('Unit Test') {
+      parallel {
+        stage('Test') {
+          environment {
+            CI = 'true'
+          }
+          steps {
+            sh './jenkins/scripts/test.sh'
+          }
+        }
+        stage('Chrome Tests') {
+          steps {
+            sh 'echo "Chrome tests mock"'
+          }
+        }
+        stage('Firefox Tests') {
+          steps {
+            sh 'echo "Firefox tests mock"'
+          }
+        }
+        stage('Component Tests') {
+          steps {
+            sh 'echo "Component Tests mock"'
+          }
+        }
+        stage('Integration Tests') {
+          steps {
+            sh 'echo "Integration Tests mock"'
+          }
+        }
       }
     }
     stage('Deliver') {
